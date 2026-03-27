@@ -1,43 +1,35 @@
-const express = require('express');
-let books = require("./booksdb.js");
-let isValid = require("./auth_users.js").isValid;
-let users = require("./auth_users.js").users;
-const public_users = express.Router();
+const axios = require('axios');
 
+const BASE_URL = "http://localhost:3000";
 
-public_users.post("/register", (req,res) => {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
+// Get all books
+async function getAllBooks() {
+    const res = await axios.get(`${BASE_URL}/`);
+    return res.data;
+}
 
-// Get the book list available in the shop
-public_users.get('/',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
+// Get book by ISBN
+async function getBookByISBN(isbn) {
+    const res = await axios.get(`${BASE_URL}/isbn/${isbn}`);
+    return res.data;
+}
 
-// Get book details based on ISBN
-public_users.get('/isbn/:isbn',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
- });
-  
-// Get book details based on author
-public_users.get('/author/:author',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
+// Get books by author
+async function getBooksByAuthor(author) {
+    const res = await axios.get(`${BASE_URL}/author/${author}`);
+    return res.data;
+}
 
-// Get all books based on title
-public_users.get('/title/:title',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
+// Get books by title
+async function getBooksByTitle(title) {
+    const res = await axios.get(`${BASE_URL}/title/${title}`);
+    return res.data;
+}
 
-//  Get book review
-public_users.get('/review/:isbn',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
-
-module.exports.general = public_users;
+// Export functions
+module.exports = {
+    getAllBooks,
+    getBookByISBN,
+    getBooksByAuthor,
+    getBooksByTitle
+};
